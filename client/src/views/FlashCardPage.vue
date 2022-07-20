@@ -24,7 +24,7 @@ export default{
 
       this.showDetails = false
 
-      console.log(this.randomKanji)
+      console.log(this.randomKanji, "<<<random kanji")
     },
 
     async showKanjiDetails(kanji){
@@ -38,12 +38,14 @@ export default{
     }
   },
 
-  created(){
-    this.getGrade()
+  async created(){
+    console.log('ayam')
+    await this.getGrade()
     this.changeKanji()
   },
 
   mounted(){
+    console.log('bebek')
     this.changeKanji()
   }
 
@@ -70,8 +72,7 @@ export default{
                     <br>
                     <a @click.prevent="changeGrade(5)"><span class="bg-blue-700 rounded-full px-5 py-2 text-bold text-white mx-2">Grade 5</span></a>
                     <a @click.prevent="changeGrade(6)"><span class="bg-indigo-700 rounded-full px-5 py-2 text-bold text-white mx-2">Grade 6</span></a>
-                    <a @click.prevent="changeGrade(7)"><span class="bg-purple-700 rounded-full px-5 py-2 text-bold text-white mx-2">Grade 7</span></a>
-                    <a @click.prevent="changeGrade(8)"><span class="bg-pink-700 rounded-full px-5 py-2 text-bold text-white mx-2">Grade 8</span></a>
+                    <a @click.prevent="changeGrade(8)"><span class="bg-pink-700 rounded-full px-5 py-2 text-bold text-white mx-2">Others</span></a>
                 </div>
 
                 <div class="my-16">
