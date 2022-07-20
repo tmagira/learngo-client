@@ -3,9 +3,21 @@ import { RouterLink, RouterView } from "vue-router";
 import SideBar from "./components/SideBar.vue";
 import Footer from "./components/Footer.vue";
 import News from "./components/News.vue";
+import { mapActions, mapState } from "pinia";
+import { useMainStore } from "./stores/main";
 
 export default{
-    components: { SideBar, Footer, News }
+    components: { SideBar, Footer, News },
+    methods:{
+      ...mapActions(useMainStore, ["getNews"])
+    },
+    computed:{
+      ...mapState(useMainStore, ["news"])
+    },
+
+    created(){
+      this.getNews()
+    }
 }
 </script>
 
@@ -30,7 +42,7 @@ export default{
 
         <section>
             <!-- News -->
-            <News />
+            <News :news="news" />
             
         </section>
 
