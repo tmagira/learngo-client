@@ -23,7 +23,7 @@ export const useKanjiStore = defineStore({
 
         this.kanjis = data
 
-        console.log(this.kanjis)
+        console.log(this.kanjis, "dari get grade<<<<")
     },
 
     async getDetails(kanji){
@@ -36,7 +36,7 @@ export const useKanjiStore = defineStore({
         this.kanjiDetails.kun = data.kun_readings
         this.kanjiDetails.on = data.on_readings
 
-        console.log(this.kanjiDetails, "<<<")
+        console.log(this.kanjiDetails, "dari get details<<<")
     }
     
     
