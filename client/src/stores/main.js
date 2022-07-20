@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore({
-  id: "counter",
+export const useMainStore = defineStore({
+  id: "main",
   state: () => ({
     counter: 0,
   }),
@@ -9,8 +9,10 @@ export const useCounterStore = defineStore({
     doubleCount: (state) => state.counter * 2,
   },
   actions: {
-    increment() {
-      this.counter++;
+    changePage(page){
+      console.log('page')
+      this.router.push(page)
     },
+    
   },
 });
