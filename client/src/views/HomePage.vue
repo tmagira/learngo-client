@@ -9,28 +9,30 @@ export default{
     name: "HomePage",
     components: { SearchBar, WriteStatus, HomeCard, News },
     computed:{
-        ...mapState(useMainStore, ["news", "isLogIn"])
+        ...mapState(useMainStore, ["news", "isLogIn", "allStatus"])
     },
     methods:{
-        ...mapActions(useMainStore, ["checkLogin", "changePage"])
+        ...mapActions(useMainStore, ["checkLogin", "changePage", "getAll"])
     },
 
     created(){
         this.checkLogin()
+        this.getAll()
         console.log(this.isLogIn)
     },
 
     mounted(){
         this.checkLogin()
+        this.getAll()
     }
 }
 </script>
 
 <template>
             
-            <SearchBar />
+            
             <WriteStatus v-if="isLogIn" />
 
-            <HomeCard />
+            <HomeCard v-for="status in allStatus" :status="status" />
 
 </template>
