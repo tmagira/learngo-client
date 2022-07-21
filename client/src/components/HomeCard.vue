@@ -1,7 +1,12 @@
 <script>
+import { mapActions } from 'pinia'
+import { useMainStore } from '../stores/main'
+
 export default{
     props: ["status"],
     methods:{
+        ...mapActions(useMainStore, ["postDetails"]),
+
         getDate(date){
             return String(date).substring(0,10)
         },
@@ -9,7 +14,8 @@ export default{
         imageUrl(url){
             console.log('http://localhost:3000/'+ url)
             return 'http://localhost:3000/'+ url
-        }
+        },
+
     }
 }
 </script>
@@ -28,14 +34,14 @@ export default{
                         </div>
 
                         <div class="flex flex-row mt-2">
-                            <span class="inline-block px-3 py-1 text-sm text-center font-semibold text-orange-700 mr-2 mb-2"><a href="">Read ></a></span>
+                            <span class="inline-block px-3 py-1 text-sm text-center font-bold text-orange-700 mr-2 mb-2"><button @click="postDetails(status.id)">Read More</button></span>
                         </div>
 
                       </div>
 
                       <!-- Status  -->
                     <div class="flex flex-row">
-                        <p class="text-gray-700 text-base">
+                        <p class="text-gray-700 text-base" style="white-space: pre-wrap;">
                             {{status.content}}
                         </p>
                     </div>
