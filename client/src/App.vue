@@ -9,13 +9,14 @@ import { useMainStore } from "./stores/main";
 export default{
     components: { SideBar, Footer, News },
     methods:{
-      ...mapActions(useMainStore, ["getNews"])
+      ...mapActions(useMainStore, ["getNews", "checkLogin"])
     },
     computed:{
-      ...mapState(useMainStore, ["news"])
+      ...mapState(useMainStore, ["news", "isLogIn"])
     },
 
     created(){
+      this.checkLogin()
       this.getNews()
     }
 }
@@ -28,7 +29,8 @@ export default{
 
         <!-- Sidebar -->
         <SideBar />
-          
+
+       
           
         <!-- Homepage -->
         <section class="p-5" style="width:900px">
@@ -36,14 +38,14 @@ export default{
           <router-view />
           
 
+
            
                 
         </section>
 
-        <section>
-            <!-- News -->
-            <News :news="news" />
-            
+        
+        <section style="width: 30vw;">
+          <News :news="news" />
         </section>
 
  
