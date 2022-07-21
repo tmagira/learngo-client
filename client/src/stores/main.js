@@ -5,12 +5,27 @@ export const useMainStore = defineStore({
   id: "main",
   state: () => ({
     news: [],
+    isLogIn: false,
+    user:{
+      name: '',
+      img: ''
+    },
+    
   }),
   getters: {
     doubleCount: (state) => state.counter * 2,
   },
   actions: {
+    checkLogin(){
+      if(localStorage.getItem('access_token')){
+        this.isLogIn = true
+      }
+    },
+
     changePage(page){
+      if(page=='/login' && this.isLogIn){
+        localStorage.clear()
+      }
       console.log('page')
       this.router.push(page)
     },
@@ -37,6 +52,35 @@ export const useMainStore = defineStore({
       console.log(this.news)
 
     },
+
+    async googleSignIn(){
+      try { 
+        const gtoken = localStorage.getItem('google_token')
+
+        const customer = await axios.post('http://localhost:3000/login', {}, {headers: {
+          google_token: gtoken
+        }})
+
+        console.log(customer.data, "<<<<")
+
+        localStorage.setItem('access_token', customer.data.access_token)
+        localStorage.setItem('name', customer.data.username)
+        localStorage.removeItem('google_token')
+
+        this.isLogin = true
+        this.router.push('/')
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async newStatus(content){
+      try {
+        
+      } catch (error) {
+        
+      }
+    }
 
     
   },
