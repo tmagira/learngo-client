@@ -1,4 +1,7 @@
 <script>
+import { mapActions, mapWritableState } from 'pinia'
+import { useMainStore } from "../stores/main";
+
 export default{
     data(){
         return{
@@ -7,7 +10,11 @@ export default{
     },
 
     methods:{
-        
+       ...mapActions(useMainStore, ["newStatus"]) 
+    },
+
+    computed:{
+        ...mapWritableState(useMainStore, ["statusForm"])
     }
 }
 </script>
@@ -29,9 +36,9 @@ export default{
                       <!-- Form  -->
                     <div class="flex flex-row">
                         <form class="w-100 mt-2" action="">
-                            <textarea class="px-5 py-2 bg-stone-200" name="" id="" cols="103" rows="3" placeholder="Ask something..."></textarea> <br>
-                            <span class="inline-block px-3 py-1 text-sm font-semibold text-sky-700 mr-2 mb-2"><a href="">Add a Picture</a></span>
-                            <button class="inline-block right-0 px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 bg-sky-900 rounded" type="submit">Upload</button>
+                            <textarea v-model="statusForm.content" class="px-5 py-2 bg-stone-200" name="" id="" cols="103" rows="3" placeholder="Ask something..."></textarea> <br>
+                            <!-- <input v-model="statusForm.imageUrl type="file" name="imageUrl" id=""> -->
+                            <button @click.prevent="newStatus()" class="inline-block right-0 px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 bg-sky-900 rounded" type="submit">Upload</button>
                         </form>
                     </div>
                 </div>

@@ -10,7 +10,12 @@ export const useMainStore = defineStore({
       name: '',
       img: ''
     },
-    
+    statusForm: {
+      content: '',
+      img:''
+    },
+    allStatus:[]
+
   }),
   getters: {
     doubleCount: (state) => state.counter * 2,
@@ -25,6 +30,7 @@ export const useMainStore = defineStore({
     changePage(page){
       if(page=='/login' && this.isLogIn){
         localStorage.clear()
+        this.isLogIn=false
       }
       console.log('page')
       this.router.push(page)
@@ -57,7 +63,7 @@ export const useMainStore = defineStore({
       try { 
         const gtoken = localStorage.getItem('google_token')
 
-        const customer = await axios.post('http://localhost:3000/login', {}, {headers: {
+        const customer = await axios.post('https://learngo-en-jp.herokuapp.com/login', {}, {headers: {
           google_token: gtoken
         }})
 
@@ -74,14 +80,33 @@ export const useMainStore = defineStore({
       }
     },
 
-    async newStatus(content){
+    async newStatus(){
       try {
-        
+        await axios.post('https://learngo-en-jp.herokuapp.com/newStatus', {
+          content: this.statusForm.content,
+          imageUrl: this.statusForm.imageUrl
+        }, {headers: {
+          access_token: localStorage.getItem('access_token')
+        }})
+
+        this.statusForm.content = ''
+        this.statusForm.imageUrl = ''
+
+        this.getAll()
       } catch (error) {
-        
+        console.log(error)
+      }
+    },
+
+    async getAll(){
+      try {
+        const all = await axios.get('https://learngo-en-jp.herokuapp.com/all')
+        this.allStatus = all.data.data
+        console.log(this.allStatus)
+      } catch (error) {
+        console.log(error)
       }
     }
-
     
   },
 });
