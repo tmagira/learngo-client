@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export const useMainStore = defineStore({
   id: "main",
@@ -11,15 +12,15 @@ export const useMainStore = defineStore({
       img: ''
     },
     statusForm: {
-      content: '',
-      img:''
+      content: ''
     },
     allStatus:[],
     oneStatus:{},
     commentForm:{
       content: '',
       postId: 0
-    }
+    },
+    
 
   }),
   getters: {
@@ -42,7 +43,7 @@ export const useMainStore = defineStore({
     },
 
     async getNews(){
-      let data = await axios.get('http://localhost:3000/news')
+      let data = await axios.get('https://learngo-en-jp.herokuapp.com/news')
       data = data.data.data
 
       this.news = []
@@ -78,10 +79,11 @@ export const useMainStore = defineStore({
 
     async newStatus(){
       try {
-        await axios.post('https://learngo-en-jp.herokuapp.com/newStatus', {
-          content: this.statusForm.content,
-          imageUrl: this.statusForm.imageUrl
-        }, {headers: {
+        let formData = new FormData();
+        formData.append('imageInput', this.statusForm.img);
+        formData.append('content', this.statusForm.content)
+
+        await axios.post('https://learngo-en-jp.herokuapp.com/newStatus', formData, {headers: {
           access_token: localStorage.getItem('access_token')
         }})
 
@@ -92,6 +94,12 @@ export const useMainStore = defineStore({
       } catch (error) {
         console.log(error)
       }
+    },
+
+    imageHandler(e){
+      var files = e.target.files;
+      this.statusForm.img = files[0]; 
+      console.log(this.statusForm) 
     },
 
     async getAll(){
@@ -134,7 +142,21 @@ export const useMainStore = defineStore({
       } catch (error) {
         console.log(error)
       }
-    }
+    },
+
     
+    async translateStatus(status){
+      try {
+        console.log(status)
+        const data = await axios.get('https://learngo-en-jp.herokuapp.com/trans/?status='+status)
+        
+        Swal.fire('Japanese Translation: ' + data.data.result)
+        
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+
   },
 });

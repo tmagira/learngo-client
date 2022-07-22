@@ -11,7 +11,7 @@ export default{
         };
     },
     computed: {
-        ...mapState(useMainStore, ["oneStatus"])
+        ...mapState(useMainStore, ["oneStatus", "isLogIn"])
     },
     methods: {
         ...mapActions(useMainStore, ["postDetails"]),
@@ -62,7 +62,7 @@ export default{
                 </div>
             </div>
 
-<WriteComment :id="oneStatus.id" />
+<WriteComment v-if="isLogin" :id="oneStatus.id" />
 
 <!-- Comments -->
 

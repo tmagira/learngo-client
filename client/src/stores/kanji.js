@@ -18,8 +18,8 @@ export const useKanjiStore = defineStore({
   },
   actions: {
     async getGrade(grade=1){
-        let data = await axios.get('https://kanjiapi.dev/v1/kanji/grade-'+grade)
-        data = data.data
+        let data = await axios.get('https://learngo-en-jp.herokuapp.com/kanji/?grade='+grade)
+        data = data.data.data
 
         this.kanjis = data
 
@@ -27,8 +27,8 @@ export const useKanjiStore = defineStore({
     },
 
     async getDetails(kanji){
-        let {data} = await axios.get('https://kanjiapi.dev/v1/kanji/'+kanji)
-        console.log(data)
+        let {data} = await axios.get('https://learngo-en-jp.herokuapp.com/kanjidetails/'+kanji)
+       data = data.data
 
         this.kanjiDetails.meaning = data.heisig_en
         this.kanjiDetails.grade = data.grade
