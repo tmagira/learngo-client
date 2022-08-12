@@ -1,0 +1,123 @@
+NOTES SERVER phase 3
+
+SERVER
+1. cd server
+2. touch .gitignore setting git ignore node modules
+3. npm install -g json-server
+4. npm i -D json-server
+5. json-server --watch db.json --port 3000
+6. di index.js import provider dari react redux, bungkus browser router dan app di provider
+
+CLIENT
+1. npx create-react-app client
+2. cd client
+3. cd src
+4. mkdir views store components
+5. touch Home.js Create.js Modal.js
+
+6. cd store
+7. (di store action) touch action.js index.js 
+8. edit package json port
+9. cd .. 
+10. cd client
+11. npm run build
+12. npm run start
+13. npm i redux react-redux redux-thunk react-router-dom@6 react-icons react-dom react-bootstrap bootstrap sweetalert2
+14. BOOTSTRAP CDN no.2 , di head body sama 2x
+
+Modal
+https://getbootstrap.com/docs/4.0/components/modal/
+
+
+https://getbootstrap.com/docs/5.2/getting-started/introduction/
+https://react-bootstrap.github.io/getting-started/introduction/
+
+styling & class:
+https://react-bootstrap.github.io/components/cards/
+
+15.import Browser router di index.js
+
+https://www.google.com/search?q=import+BrowserRouter+from&rlz=1C5CHFA_enID944ID944&oq=impo&aqs=chrome.0.69i59l3j69i57j0i433i512j46i175i199i512j69i61j69i60.1445j0j7&sourceid=chrome&ie=UTF-8 
+
+16. import Provider juga di index js
+
+https://www.google.com/search?q=import+Provider+redux&rlz=1C5CHFA_enID944ID944&ei=8fPmYvbUAqiq3LUPrrq6sAw&ved=0ahUKEwi2kYP-iKT5AhUoFbcAHS6dDsYQ4dUDCA0&uact=5&oq=import+Provider+redux&gs_lcp=Cgdnd3Mtd2l6EAMyBAgAEBMyCAgAEB4QFhATOgcIABBHELADOgYIABAeEA06CAgAEB4QDxANOgYIABAeEBY6CAgAEB4QCBANOgoIABAeEA8QFhATOgoIABAeEBYQChATSgQIQRgASgQIRhgAUL4FWKUPYOgQaAFwAXgAgAFNiAGIA5IBATaYAQCgAQHIAQjAAQE&sclient=gws-wiz
+
+17. import store dari file path store juga di index js
+19. bikin storenya di index js di store
+
+20. import createStore
+
+https://www.google.com/search?q=import+createStore+redux&rlz=1C5CHFA_enID944ID944&ei=9vPmYpXYOJya3LUPla6ysAQ&ved=0ahUKEwiVq-qAiaT5AhUcDbcAHRWXDEYQ4dUDCA0&uact=5&oq=import+createStore+redux&gs_lcp=Cgdnd3Mtd2l6EAMyBggAEB4QFjIGCAAQHhAWMgYIABAeEBYyBggAEB4QFjIGCAAQHhAWMgYIABAeEBY6BwgAEEcQsAM6BQgAEIAEOgQIABBDOgcIABCABBAKSgQIQRgASgQIRhgAULEKWKM1YMc2aAFwAXgAgAFViAHbCJIBAjE3mAEAoAEByAEIwAEB&sclient=gws-wiz
+
+21. bikin reducer juga di file yang sama, terima state (assign initialValue) sama action yang ngembaliin state baru tasks action payload
+
+https://www.google.com/search?q=reducer+example&rlz=1C5CHFA_enID944ID944&oq=reducer+example&aqs=chrome..69i57j0i22i30l9.3430j0j7&sourceid=chrome&ie=UTF-8
+
+
+22. bikin store applyMiddleware thunk
+
+https://www.google.com/search?q=import+thunk+react&rlz=1C5CHFA_enID944ID944&ei=q_TmYsj5LoTZz7sPyKmYwAo&ved=0ahUKEwiI-4fXiaT5AhWE7HMBHcgUBqgQ4dUDCA0&uact=5&oq=import+thunk+react&gs_lcp=Cgdnd3Mtd2l6EAMyBQghEKABMgUIIRCgATIFCCEQoAE6BwgAEEcQsAM6BQgAEIAEOgYIABAeEBY6CAgAEB4QFhAKOggIABAeEAgQDToHCCEQoAEQCkoECEEYAEoECEYYAFC7DVjOImDiJGgBcAF4AIABbIgBtgWSAQQxMC4xmAEAoAEByAEIwAEB&sclient=gws-wiz
+
+23. export store nya
+24. bikin export const fetchTask, anon function, ngembaliin fungsi terima dispatch gestate arrow kembaliin fetch di action js
+
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+pilih yang uploading json data
+
+25. import dispatch selector fetchTasks di Home
+
+https://react-redux.js.org/api/hooks
+pilih yang useDispatch example
+
+26. di dispatch action creator, obj type payload!
+
+https://redux.js.org/usage/writing-logic-thunks 
+
+26. bikin function Home biasa, export default di bawah
+27. useEffect dispatch fetchTask di invoke, import useSelector juga buat ngambil state sama tasks action payload
+
+https://reactjs.org/docs/hooks-effect.html
+
+28. cek pake JSON stringify data null 2
+29. import routes route di app js 
+30. bikin routingan dari element page, import2 element page gapake obj
+
+https://reactrouter.com/docs/en/v6/components/routes
+
+31. di useEffect baru watch tasks, di dalemnya set local tasks jadi tasks redux karena process ambil tasks dari redux itu async
+
+32. bikin filter select option, kasih value
+33. show data table loop return TR nya
+34. bikin state tasks lokal sama lokal category, kasih value category di select, jangan lupa onChange langsung ga pake handle di set category nya pakai e target value
+
+35. watch category, kalau category bukan all const  filtered task set tasks di filter kembaliin task yang sama dengan category
+
+— halaman create —
+35. set lokal state taskInput awal  obj title category kosong
+bikin form kasih value, name sama onchange
+action creator addTask terima newTask body langsung JSON stringify newTask
+
+const handleChange anon baru di isi  e, target
+bikin form spread taskInput sama isi payloadnya
+set local tasknya 
+
+handle submit di prevent, sweetalert
+install:
+https://www.google.com/search?rlz=1C5CHFA_enID944ID944&q=import+sweetalert2&spell=1&sa=X&ved=2ahUKEwji_JHLnaT5AhX9AbcAHV36A0gQBSgAegQIARA3&biw=1440&bih=738&dpr=2 
+
+cara pakai:
+https://sweetalert2.github.io/ 
+
+import obj action dari path action
+
+— DELETE —
+handle delete!
+target value bukan id
+
+— EDIT —
+bikin component Modal
+https://getbootstrap.com/docs/4.0/components/modal/ 
+pilih yang live demo
+
+conditional error di server null diatas fetch langsung

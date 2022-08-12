@@ -7,7 +7,8 @@ import WriteComment from '../components/WriteComment.vue';
 export default{
     data() {
         return {
-            username: localStorage.getItem("name")
+            username: localStorage.getItem("name"),
+            displayPic: localStorage.getItem("displayPic")
         };
     },
     computed: {
@@ -19,11 +20,15 @@ export default{
         getDate(date) {
             return String(date).substring(0, 10);
         },
+
+        imageUrl(url){
+            return `data:image/png;base64,${url}`
+        },
     },
     components: { CommentCard, WriteComment },
     
     created(){
-        console.log("created");
+        console.log(this.oneStatus, '><><><><>');
         this.postDetails(this.oneStatus.id)
     },
     mounted(){
@@ -39,7 +44,7 @@ export default{
                 <div class="px-6 py-4">
                     <div class="flex flex-row">
                         <div class="basis-1/12 ">
-                            <img class="rounded-full w-10 my-auto" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="">
+                            <img class="rounded-full w-10 my-auto" v-bind:src=oneStatus.User.displayPic alt="">
                         </div>
                         <div class="basis-9/12">
                             <div class="font-bold text-l px-2">{{oneStatus.User.username}}</div>
@@ -53,16 +58,18 @@ export default{
                         <p class="text-gray-700 text-base" style="white-space: pre-wrap;">
                             {{oneStatus.content}}
                         </p>
+
+                        
                     </div>
 
                     <div class="flex flex-row">
-                        <!-- <img  v-if=" status.imageUrl " class="mx-auto my-3 w-1/3"  alt="???"> -->
+                        <img  v-if="oneStatus.imageUrl " class="mx-auto my-3 w-1/3" :src="imageUrl(oneStatus.imageUrl)" alt="???">
                     </div>
 
                 </div>
             </div>
 
-<WriteComment v-if="isLogin" :id="oneStatus.id" />
+<WriteComment :id="oneStatus.id" v-if="isLogIn"/>
 
 <!-- Comments -->
 

@@ -3,7 +3,7 @@
 
 <template>
  <!-- Search Topic -->
-            <div class="rounded  overflow-hidden shadow-lg bg-white mb-2 px-5 py-2">
+            <div class="rounded  overflow-hidden shadow-lg bg-white mb-2 px-5 py-2" style="height: 100vh ;">
                       <!-- Form  -->
                       <div class="font-bold text-l px-2">Find Topic</div>
                       <form class="w-100 mt-2"  action="">

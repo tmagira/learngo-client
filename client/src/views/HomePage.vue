@@ -5,23 +5,23 @@ import HomeCard from "../components/HomeCard.vue";
 import News from "../components/News.vue";
 import { mapActions, mapState } from "pinia";
 import { useMainStore } from "../stores/main";
-export default{
+export default {
     name: "HomePage",
     components: { SearchBar, WriteStatus, HomeCard, News },
-    computed:{
+    computed: {
         ...mapState(useMainStore, ["news", "isLogIn", "allStatus"])
     },
-    methods:{
+    methods: {
         ...mapActions(useMainStore, ["checkLogin", "changePage", "getAll"])
     },
 
-    created(){
+    created() {
         this.checkLogin()
         this.getAll()
         console.log(this.isLogIn)
     },
 
-    mounted(){
+    mounted() {
         this.checkLogin()
         this.getAll()
     }
@@ -29,10 +29,6 @@ export default{
 </script>
 
 <template>
-            
-            
-            <WriteStatus v-if="isLogIn" />
-
-            <HomeCard v-for="status in allStatus" :status="status" />
-
+    <WriteStatus v-if="isLogIn" />
+    <HomeCard v-for="status in allStatus" :status="status" />
 </template>

@@ -16,7 +16,7 @@ export default{
                 <div class="px-6 py-4">
                     <div class="flex flex-row">
                         <div class="basis-1/12 ">
-                            <img class="rounded-full w-10 my-auto" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="">
+                            <img class="rounded-full w-10 my-auto" v-bind:src=comment.User.displayPic alt=""/>
                         </div>
                         <div class="basis-9/12">
                             <div class="font-bold text-l px-2">{{comment.User.username}}</div>

@@ -34,11 +34,11 @@ export const useMainStore = defineStore({
     },
 
     changePage(page){
-      if(page=='/login' && this.isLogIn){
+      if(page=='/login'){
         localStorage.clear()
         this.isLogIn=false
       }
-      console.log('page')
+      this.checkLogin()
       this.router.push(page)
     },
 
@@ -64,10 +64,9 @@ export const useMainStore = defineStore({
           google_token: gtoken
         }})
 
-        console.log(customer.data, "<<<<")
-
         localStorage.setItem('access_token', customer.data.access_token)
         localStorage.setItem('name', customer.data.username)
+        localStorage.setItem('displayPic', customer.data.displayPic)
         localStorage.removeItem('google_token')
 
         this.isLogin = true
@@ -89,8 +88,10 @@ export const useMainStore = defineStore({
 
         this.statusForm.content = ''
         this.statusForm.imageUrl = ''
+        this.$refs.imageInput.value = null;
 
         this.getAll()
+        this.router.push('/')
       } catch (error) {
         console.log(error)
       }
@@ -99,14 +100,12 @@ export const useMainStore = defineStore({
     imageHandler(e){
       var files = e.target.files;
       this.statusForm.img = files[0]; 
-      console.log(this.statusForm) 
     },
 
     async getAll(){
       try {
         const all = await axios.get('https://learngo-en-jp.herokuapp.com/all')
         this.allStatus = all.data.data
-        console.log(this.allStatus)
       } catch (error) {
         console.log(error)
       }
@@ -114,11 +113,10 @@ export const useMainStore = defineStore({
 
     async postDetails(id){
       try {
-        console.log(id, "888")
         const status = await axios.get('https://learngo-en-jp.herokuapp.com/status/'+id)
 
         this.oneStatus = status.data.message
-        console.log(this.oneStatus)
+        
         this.router.push("/read")
       } catch (error) {
         console.log(error)
@@ -127,7 +125,6 @@ export const useMainStore = defineStore({
 
     async writeComment(id){
       try {
-        console.log(id,"<<")
         await axios.post('https://learngo-en-jp.herokuapp.com/newComment', {
           content: this.commentForm.content,
           postId: id
@@ -137,7 +134,7 @@ export const useMainStore = defineStore({
 
         this.commentForm.content = ''
 
-        
+        this.postDetails(id)
 
       } catch (error) {
         console.log(error)
@@ -147,10 +144,10 @@ export const useMainStore = defineStore({
     
     async translateStatus(status){
       try {
-        console.log(status)
+  
         const data = await axios.get('https://learngo-en-jp.herokuapp.com/trans/?status='+status)
         
-        Swal.fire('Japanese Translation: ' + data.data.result)
+        Swal.fire('Japanese Translation: \n' + data.data.result)
         
       } catch (error) {
         console.log(error)
